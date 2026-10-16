@@ -1,0 +1,5 @@
+@EndUserText.label: 'Stardust Access Role'
+@MappingRole: true
+define role ZKS1016_C_SDUST {
+    grant select on ZKS1016_C_SDUST;
+}

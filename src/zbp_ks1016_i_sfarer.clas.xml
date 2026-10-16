@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZBP_KS1016_I_SFARER</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Behavior implementation Spacefarer</DESCRIPT>
+    <CATEGORY>06</CATEGORY>
+    <STATE>1</STATE>
+    <CLSFINAL>X</CLSFINAL>
+    <CLSABSTRCT>X</CLSABSTRCT>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>5</UNICODE>
+    <CLSDEFINT>ZKS1016_I_SFARER</CLSDEFINT>
+   </VSEOCLASS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

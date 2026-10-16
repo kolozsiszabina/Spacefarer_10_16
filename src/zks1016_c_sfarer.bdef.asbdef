@@ -1,0 +1,44 @@
+projection;
+strict ( 2 );
+use draft;
+use side effects;
+
+define behavior for ZKS1016_C_SFARER alias Spacefarer
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+
+ use action checkSkillRep;
+
+  use association _Collection { create; with draft; }
+  use association _Stardust { with draft; }
+}
+
+define behavior for ZKS1016_C_SDUSTC alias StardustCollection
+{
+  use update;
+  use delete;
+
+  use association _Spacefarer { with draft; }
+  use association _Stardust { create; with draft; }
+}
+
+define behavior for ZKS1016_C_SDUST alias Stardust
+{
+  use update;
+  //  use delete;
+
+  use action buyStardust;
+  use action sellStardust;
+  use action exchangeStardust;
+
+  use association _SdustCollection { with draft; }
+  use association _Spacefarer { with draft; }
+}

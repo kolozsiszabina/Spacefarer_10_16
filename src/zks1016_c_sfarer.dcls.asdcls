@@ -1,0 +1,5 @@
+@EndUserText.label: 'Spacefarer Access Control'
+@MappingRole: true
+define role ZKS1016_C_SFARER {
+    grant select on ZKS1016_C_SFARER;
+}

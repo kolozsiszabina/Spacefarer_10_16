@@ -1,0 +1,5 @@
+@EndUserText.label: 'Spacefarer Wealth Access Control'
+@MappingRole: true
+define role ZKS1016_C_SFWEALTH {
+    grant select on ZKS1016_C_SFWEALTH;
+}

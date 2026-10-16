@@ -1,0 +1,9 @@
+@EndUserText.label: 'Galactic Adventure'
+define service ZKS1016_SD_GAP {
+  expose ZKS1016_C_SFARER   as Spacefarer;
+  expose ZKS1016_C_SFSDUSTC as SpacefarerStardustCollection;
+  expose ZKS1016_C_SFWEALTH as SpacefarerWealth;
+  expose ZKS1016_C_SDUSTC   as StardustCollection;
+  expose ZKS1016_C_SDUST    as Stardust;
+  expose ZKS1016_I_SDUST_VH as StardustVH;
+}

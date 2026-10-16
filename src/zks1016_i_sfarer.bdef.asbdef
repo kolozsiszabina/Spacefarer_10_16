@@ -1,0 +1,117 @@
+managed implementation in class zbp_ks1016_i_sfarer unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZKS1016_I_SFARER alias Spacefarer
+persistent table zks1016_t_sfarer
+draft table zks1016_d_sfarer
+lock master
+total etag ChangedOn
+authorization master ( global, instance )
+etag master ChangedOn
+{
+  create;
+  update ( features : instance );
+  delete ( features : instance );
+
+  field ( numbering : managed, readonly ) SpacefarerId;
+  field ( mandatory ) Name, FactionId, OriginPlanet, PositionId;
+  field ( readonly ) StardustCollId, SuitColor, CreatedOn, CreatedBy, ChangedOn, ChangedBy, Credits, CreditsCurrency;
+
+  determination setInitialCredits on modify { create; }
+
+  association _Collection { create ( features : instance ); with draft; }
+  association _Stardust { with draft; }
+
+  validation validateSkillRep on save { create; update; field WormholeNavSkill, Reputation; }
+
+  determine action checkSkillRep { validation validateSkillRep; }
+
+  side effects
+  {
+    determine action checkSkillRep executed on field WormholeNavSkill, field Reputation
+    affects messages;
+  }
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare
+  {
+    validation validateSkillRep;
+  }
+
+  mapping for zks1016_t_sfarer corresponding
+    {
+      SpacefarerId     = spacefarer_id;
+      WormholeNavSkill = wormhole_nav_skill;
+      OriginPlanet     = origin_planet;
+      FactionId        = faction_id;
+      PositionId       = position_id;
+      Credits          = credits;
+      CreditsCurrency  = credits_currency;
+      CreatedOn        = created_on;
+      CreatedBy        = created_by;
+      ChangedOn        = changed_on;
+      ChangedBy        = changed_by;
+      Attachment       = attachment;
+      MimeType         = mimetype;
+      FileName         = filename;
+    }
+}
+
+define behavior for ZKS1016_I_SDUSTC alias StardustCollection
+persistent table zks1016_t_sdustc
+draft table zks1016_d_sdustc
+lock dependent by _Spacefarer
+authorization dependent by _Spacefarer
+etag dependent by _Spacefarer
+{
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) StardustCollId;
+  field ( readonly ) SpacefarerId;
+
+  association _Spacefarer { with draft; }
+  association _Stardust { create; with draft; }
+
+  mapping for zks1016_t_sdustc corresponding
+    {
+      StardustCollId   = stardust_coll_id;
+      SpacefarerId     = spacefarer_id;
+      StardustCollName = stardust_coll_name;
+    }
+}
+
+define behavior for ZKS1016_I_SDUST alias Stardust
+persistent table zks1016_t_sdust
+draft table zks1016_d_sdust
+lock dependent by _Spacefarer
+authorization dependent by _Spacefarer
+etag dependent by _Spacefarer
+{
+  update;
+  //  delete;
+
+  field ( numbering : managed, readonly ) StardustId;
+  field ( readonly ) CollectionId, SpacefarerId, ColorId, Weight, WeightUom, MatterId, Value;
+
+  association _SdustCollection { with draft; }
+  association _Spacefarer { with draft; }
+
+  action ( features : instance, authorization : update ) buyStardust parameter zks1016_p_trade result [1] $self;
+  action ( features : instance, authorization : update ) sellStardust parameter zks1016_p_trade result [1] $self;
+  action ( features : instance, authorization : update ) exchangeStardust parameter zks1016_p_exchange result [1] $self;
+
+  mapping for zks1016_t_sdust corresponding
+    {
+      StardustId    = stardust_id;
+      CollectionId  = collection_id;
+      ColorId       = color_id;
+      WeightUom     = weight_uom;
+      MatterId      = matter_id;
+      ValueCurrency = value_currency;
+    }
+}
